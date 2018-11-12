@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -14,11 +15,13 @@ public class WebSocketController {
     @Autowired
     private EditorCache cache;
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     @MessageMapping("/edit")
-    @SendTo("/topic/edits")
-    public CodeModel handleEdit(CodeModel message) throws Exception {
+    public void handleEdit(CodeModel message) throws Exception {
         cache.put(message);
-        return message;
+        messagingTemplate.convertAndSend("/topic/edits/" + message.getSessionId(), message);
     }
 
     @MessageExceptionHandler

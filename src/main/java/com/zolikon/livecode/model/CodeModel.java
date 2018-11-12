@@ -2,15 +2,15 @@ package com.zolikon.livecode.model;
 
 public class CodeModel {
 
-    private String text;
     private String sessionId;
+    private String text;
 
     public CodeModel() {
     }
 
-    public CodeModel(String text, String sessionId) {
-        this.text = text;
+    public CodeModel(String sessionId, String text) {
         this.sessionId = sessionId;
+        this.text = text;
     }
 
     public String getText() {

@@ -2,7 +2,6 @@ package com.zolikon.livecode;
 
 import com.zolikon.livecode.model.CodeModel;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.HtmlUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ public class EditorCache {
     }
 
     public synchronized String get(String id) {
-        return HtmlUtils.htmlUnescape(map.getOrDefault(id, "You can start coding"));
+        return map.getOrDefault(id, "You can start coding");
     }
 
 }
